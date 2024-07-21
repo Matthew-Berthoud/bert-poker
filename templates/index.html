@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<p>Logged in as {{ session["username"] }}.</p>
+
+<form method="post">
+    <input name="submit_button" type="submit" value="Log out" />
+</form>
+
+<h1>Chat</h1>
+
+{% for message in messages %}
+<p>{{ message }}</p>
+{% endfor %}
+
+<form method="post">
+    <input name="chat_message" type="text" placeholder="type chat here"/>
+    <input name="submit_button" type="submit" value="Chat" />
+</form>
+
+
+{% endblock %}
