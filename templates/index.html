@@ -1,12 +1,8 @@
 {% extends "layout.html" %}
 
-{% block body %}
+{% block content %}
 
 <p>Logged in as {{ session["username"] }}.</p>
-
-<form method="post">
-    <input name="submit_button" type="submit" value="Log out" />
-</form>
 
 <h1>Chat</h1>
 
@@ -14,9 +10,9 @@
 <p>{{ message }}</p>
 {% endfor %}
 
-<form method="post">
+<form>
     <input name="chat_message" id="chat_message" type="text" placeholder="type chat here"/>
-    <input name="submit_button" type="submit" value="Chat" />
+    <input id="chat_button" type="submit", value="Send"/>
 </form>
 
 
