@@ -14,10 +14,21 @@
         ></script>
     </head>
     <body>
-        <div class="content">
+        <nav>
+            <ul>
+                <li class="nav-title"><a href="/"> BertPoker </a></li>
+                <li class="nav-spacer"></li>
+                {% if session["username"] %}
+                    <li class="nav-text"> {{ session["username"] }} </li>
+                    <li class="nav-link"><a href="/logout"> Logout </a></li>
+                {% else %}
+                    <li class="nav-link"><a href="/login"> Login </a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        <main>
             {% block content %}{% endblock %}
-        </div>
-        <!-- <script src="static/js/socketio.js"></script> -->
+        </main>
     </body>
 </html>
 
