@@ -4,6 +4,8 @@ from flask_socketio import SocketIO, emit, send, join_room, leave_room
 from werkzeug.middleware.proxy_fix import ProxyFix
 from string import ascii_uppercase
 
+from utils import login_required
+
 app = Flask(__name__)
 app.wsgi_app = ProxyFix(app.wsgi_app)
 socketio = SocketIO(app)
@@ -27,10 +29,9 @@ def generate_unique_code(length):
 
 
 @app.route('/', methods=['GET', 'POST'])
+@login_required
 def index():
-    if 'username' in session:
-        return redirect(url_for('home'))
-    return redirect(url_for('login'))
+    return redirect(url_for('home'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -45,6 +46,7 @@ def logout():
     return redirect(url_for('index'))
 
 @app.route("/home", methods=["GET", "POST"])
+@login_required
 def home():
     session.pop("room", None)
     if request.method == "POST":
@@ -73,6 +75,7 @@ def home():
     return render_template("home.html", username=session["username"])
 
 @app.route("/room")
+@login_required
 def room():
     room = session.get("room")
     if room is None or session.get("username") is None or room not in rooms:
