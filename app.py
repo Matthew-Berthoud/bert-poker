@@ -58,21 +58,18 @@ def home():
         if not name:
             return redirect(url_for("index"))
 
-        if join != False and not code:
-            return render_template("home.html", error="Please enter a room code.", code=code, name=name)
-
         room = code
         if create != False:
             room = generate_unique_code(4)
             rooms[room] = {"members": 0, "messages": []}
         elif code not in rooms:
-            return render_template("home.html", error="Room does not exist.", code=code, name=name)
+            return render_template("home.html", error="Room does not exist.", room_codes=rooms.keys())
 
         session["room"] = room
         session["username"] = name
         return redirect(url_for("room"))
         
-    return render_template("home.html", username=session["username"])
+    return render_template("home.html", room_codes=rooms.keys())
 
 @app.route("/room")
 @login_required
